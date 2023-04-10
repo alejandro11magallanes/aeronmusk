@@ -704,26 +704,239 @@ label {
 }
 
 
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --font: "Montserrat", sans-serif;
+
+  --font-color: #1c1c1c;
+
+  --bg-color: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+  --bg-card: #ecf4ff;
+  --bg-projetc: rgba(192, 192, 192, 0.6);
+
+  --grey: #44475a;
+  --orange: #ffb86c;
+  --purple: #bd93f9;
+}
+
+/*===== Body =====*/
+
+body {
+  background: var(--bg-color) no-repeat;
+  background-size: auto;
+  font-family: var(--font);
+  height: 100vh;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  width: 600px;
+  background: var(--bg-card);
+  color: var(--title-color);
+
+  padding: 3rem;
+
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  display: block;
+}
+
+/*===== Header =====*/
+.perfil {
+  display: flex;
+  align-items: center;
+}
+
+.perfil > img {
+  max-width: 10rem;
+  max-height: 10rem;
+  border-radius: 50%;
+  box-shadow: 0px 0px 21px 2px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+  margin-left: 1rem;
+}
+
+.title h1 {
+  font-weight: bolder;
+  font-size: 1.8rem;
+}
+
+.title h3 {
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+.title p {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: #949494;
+  margin-bottom: 0.3rem;
+}
+
+/*==== texto animado ===== */
+.line-1 {
+  position: relative;
+  top: 50%;
+  width: 28em;
+  border-right: 2px solid rgba(255, 255, 255, 0.75);
+  font-size: 0.8rem;
+  color: var(--grey);
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: 400;
+  transform: translateY(-50%);
+}
+
+/* Animation */
+.anim-typewriter {
+  animation: typewriter 4s steps(44) 1s 1 normal both,
+    blinkTextCursor 500ms steps(44) infinite normal;
+}
+
+@keyframes typewriter {
+  from {
+    width: 0;
+  }
+  to {
+    width: 28em;
+  }
+}
+
+@keyframes blinkTextCursor {
+  from {
+    border-right-color: rgba(255, 255, 255, 0.75);
+  }
+  to {
+    border-right-color: transparent;
+  }
+}
+
+@keyframes caret {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/*===== Icons ===== */
+.lista-links {
+  color: var(--title-color);
+}
+
+.link-icon {
+  text-decoration: none;
+  font-size: 1.3rem;
+  color: var(--purple);
+  transition: color 0.2s;
+}
+
+.link-icon:hover {
+  color: var(--orange);
+}
+
+/*===== Projetos =====*/
+.projetos {
+  margin-top: 1rem;
+}
+
+.container-projetos {
+  padding: 1.1rem 1rem;
+  background: var(--bg-projetc);
+  /*box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);*/
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+}
+
+.container-projetos h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.container-projetos ol {
+  margin-left: 1rem;
+  color: var(--title);
+}
+
+.container-projetos li {
+  font-size: 0.9rem;
+}
+
+.container-projetos a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: var(--title);
+}
+
+.container-projetos a:hover {
+  color: var(--purple);
+}
+
+.container-projetos li:hover {
+  color: var(--purple);
+}
+
 </style>
 
 
 <x-app-layout>
-   <div>
-        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-            <div class="container mx-auto px-6 py-8">
-           
-                
-                <h3 class="text-gray-700 text-3xl font-medium ">Bienvenido : {{ auth()->user()->name }}</h3>                
-
-                <p>Role : <b>
+<div class="container mx-auto px-6 py-8">
+    <header class="perfil">
+     
+      <img 
+                    src="/images/{{ auth()->user()->profile }}"
+                    alt="Your avatar">
+      <div class="title">
+        <h1>{{auth()->user()->name}}</h1>
+        <h3>{{auth()->user()->email}}</h3>
+        <p> Rol : <b>
                     @foreach(auth()->user()->roles as $role)
                         {{ $role->name }}
                     @endforeach 
                 </b> </p>
-  
-            </div>
-        </main>
-    </div>
-</div>
+
+        <!-- Icons -->
+        <a title="Codepen" class="link-icon" target="_blank" href="https://codepen.io/golin">
+          <i class="fab fa-codepen"></i>
+        </a>
+
+        <a title="GitHub" class="link-icon" target="_blank" href="https://github.com/lgolin">
+          <i class="fab fa-github-square"></i>
+        </a>
+
+        <a title="Linkedin" class="link-icon" target="_blank" href="https://www.linkedin.com/in/laisgolin/">
+          <i class="fab fa-linkedin"></i>
+        </a>
+
+        <a title="Twitter" class="link-icon" target="_blank" href="https://twitter.com/laisgolin">
+          <i class="fab fa-twitter-square"></i>
+        </a>
+      </div>
+    </header>
+
+    <!-- estrutura do projeto -->
+   
+  </div>
+
+
+   
 @yield('js')
 </x-app-layout>

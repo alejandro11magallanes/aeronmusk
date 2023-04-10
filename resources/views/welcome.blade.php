@@ -1,3 +1,5 @@
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+
 <x-front-guest-layout>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -48,3 +50,11 @@
 
 
 </x-front-guest-layout>
+
+<script src="{{ asset('js/app.js') }}"></script>
+        
+<script>
+            Echo.channel('home').listen('NewMessage', (e) => {
+                console.log(e.message)
+            })
+        </script>

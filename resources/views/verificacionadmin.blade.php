@@ -593,7 +593,7 @@
         @media (prefers-color-scheme: dark) {
             .dark\:bg-gray-900 {
                 --tw-bg-opacity: 1;
-                background-color: rgb(17 24 39 / var(--tw-bg-opacity))
+    background-color: rgba(17, 24, 39, var(--tw-bg-opacity));
             }
             .dark\:bg-gray-800\/50 {
                 background-color: rgb(31 41 55 / 0.5)
@@ -601,7 +601,9 @@
             .dark\:bg-red-800\/20 {
                 background-color: rgb(153 27 27 / 0.2)
             }
-            
+            .dark\:bg-dots-lighter {
+                
+            }
             .dark\:bg-gradient-to-bl {
                 background-image: linear-gradient(to bottom left, var(--tw-gradient-stops))
             }
@@ -685,15 +687,26 @@
                 padding: 2rem
             }
         }
+
+  .imagen-redonda {
+  border-radius: 50%;
+  width:200px;
+  height:200px;
+  text-align: center;
+  display: block;
+  margin: auto;
+}
+
+
     </style>
 </head>
 
 <body class="antialiased">
     <div
-        class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+        class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
             <div class="flex justify-center">
-               
+            <img src="{{URL::asset('images/Dulceria.png')}}" alt="" class="imagen-redonda">
             </div>
 
             <div class="mt-16">
@@ -709,7 +722,7 @@
                             
 
                             <h2 class="mt-6 text-xl font-semibold text-gray-900 dark:text-white">Ingresar tu codigo</h2>
-                            <form method="POST" action="{{route('validacion')}}">
+                            <form method="POST" action="{{route('validacionqr')}}">
                                 @csrf
                                
                                 <div>

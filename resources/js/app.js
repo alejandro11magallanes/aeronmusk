@@ -1,5 +1,5 @@
 require('./bootstrap');
 
 require('alpinejs');
-
-//Window.Swal = require('sweetalert2')
+require('laravel-echo');
+require('pusher-js');

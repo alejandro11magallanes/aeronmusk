@@ -140,6 +140,8 @@ return [
          * Laravel Framework Service Providers...
          */
         Illuminate\Auth\AuthServiceProvider::class,
+        //
+       // App\Providers\BroadcastServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
@@ -161,7 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+       
         /*
          * Package Service Providers...
          */
@@ -175,7 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-       
+       // \Barryvdh\Cors\ServiceProvider::class,
+        //dd\Barryvdh\Cors\HandleCors::class
 
     ],
 
@@ -219,7 +222,7 @@ return [
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'RateLimiter' => Illuminate\Support\Facades\RateLimiter::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,
-        // 'Redis' => Illuminate\Support\Facades\Redis::class,
+         'Redis' => Illuminate\Support\Facades\Redis::class,
         'Request' => Illuminate\Support\Facades\Request::class,
         'Response' => Illuminate\Support\Facades\Response::class,
         'Route' => Illuminate\Support\Facades\Route::class,

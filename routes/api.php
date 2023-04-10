@@ -19,5 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-
+//CORREO EL
 Route::post('/movil', [CodeController::class, 'generarMovil']);
+//GENERAR MOVIL QR
+Route::post('/qr', [CodeController::class, 'generarMovilqr']);
+//UPDATE
+Route::post('/qr/update-status', [CodeController::class, 'updateStatus']);
+//->name('qr.updateStatus');

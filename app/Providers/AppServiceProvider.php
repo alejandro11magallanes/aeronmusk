@@ -4,7 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Mailsetting;
+use Illuminate\Support\Facades\Event;
 
+use App\Listeners\TableChangeListener;
+use Illuminate\Database\Events\StatementExecuted;
 use Config;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Event::listen(StatementExecuted::class, TableChangeListener::class);
+        
         if (\Schema::hasTable('mailsettings')) {
             $mailsetting = Mailsetting::first();
             if($mailsetting){

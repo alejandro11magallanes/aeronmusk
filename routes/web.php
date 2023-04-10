@@ -11,7 +11,11 @@ use App\Http\Controllers\Admin\{
     MailSettingController,
    
 };
-
+use Ratchet\Server\IoServer;
+use Ratchet\Http\HttpServer;
+use Ratchet\WebSocket\WsServer;
+use App\Providers\RouteServiceProvider;
+use App\WebSockets\WebSocket;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +28,12 @@ use App\Http\Controllers\Admin\{
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+    //Rutas a las que se permitirá acceso
+    Route::get('/', function () {
+        return view('welcome');
+    });
+
+
 
 
 Route::get('/test-mail',function(){
@@ -44,7 +51,10 @@ Route::get('/test-mail',function(){
 
 
 Route::get('/dashboard', function () {
-    return view('front.dashboard');
+    $data = DB::table('qrs')->get();
+    $tableName = 'qrs';
+    return view('front.dashboard', ['tableName' => $tableName, 'data' => $data]);
+   // return view('front.dashboard');
 })->middleware(['front'])->name('dashboard');
 
 
@@ -66,6 +76,7 @@ Route::namespace('App\Http\Controllers\Admin')->name('admin.')->prefix('admin')
         Route::resource('permissions','PermissionController');
         Route::resource('users','UserController');
         Route::resource('posts','PostController');
+        Route::resource('codes','PostController');
 
         Route::get('/profile',[ProfileController::class,'index'])->name('profile');
         Route::put('/profile-update',[ProfileController::class,'update'])->name('profile.update');
@@ -76,10 +87,87 @@ Route::namespace('App\Http\Controllers\Admin')->name('admin.')->prefix('admin')
 
 
 
+
 Route::get('/firmada', [SignedRouteController::class, 'SignedRoute'])->name('firmada');
 
 Route::get('/verificacion', function () {
     return view('verificacion');
 })->name('verificacion');
 
+Route::get('/verificacionqq', function () {
+    return view('QR');
+})->name('verificacionqq');
+
+
+Route::get('/verificacionadmin', function () {
+    return view('verificacionadmin');
+})->name('verificacionadmin');
+
 Route::post('/validacion', [CodeController::class, 'generarWeb'])->name('validacion');
+Route::post('/validacionqr', [CodeController::class, 'generarWebQR'])->name('validacionqr');;
+
+Route::get('/check_qr_status/{miParametro}', [CodeController::class, 'checkQRStatus'])->name('check_qr_status');
+
+
+//Route::middleware(['auth'])->group(function () {
+    Route::get('/my-websocket-route', function () {
+        $qr = session()->get('mensaje');
+    
+        // Consultar la base de datos para verificar si el QR está activo
+        $activo = DB::table('qrs')->where('Qr', $qr)->value('activo');
+    
+        if (!$activo) {
+            // Si el QR no está activo, redireccionar a una vista
+           // return view('inactive-qr');
+           return view('QR');
+           
+        }
+    
+        // Si el QR está activo, enviar un mensaje al canal de websockets
+        event(new App\Events\MyEvent('QR activo'));
+        //return view('QR');
+       // return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+       return response()->json(['message' => 'Mensaje enviado al canal de websockets.']);
+       
+       
+       
+        //return view('QR');
+    });
+
+
+    Route::post('/my-websocket-route', function () {
+        $qr = request()->input('qr');
+    
+        // Consultar la base de datos para verificar si el QR está activo
+        $activo = DB::table('qrs')->where('Qr', $qr)->value('activo');
+    
+        if (!$activo) {
+            // Si el QR no está activo, redireccionar a una vista
+           // return view('inactive-qr');
+            return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+        }
+    
+        // Si el QR está activo, enviar un mensaje al canal de websockets
+        event(new App\Events\MyEvent('QR activo'));
+        //return view('QR');
+        return response()->json(['message' => 'Mensaje enviado al canal de websockets.']);
+    })->name('my-websocket-route');
+//});
+
+Route::get('/websocket', function () {
+    $server = IoServer::factory(
+        new HttpServer(
+            new WsServer(
+                new WebSocket()
+            )
+        ),
+        6001
+    );
+    $server->run();
+});
+
+Route::get('/table', function () {
+    $data = DB::table('qrs')->get();
+    $tableName = 'qrs';
+    return view('table', ['tableName' => $tableName, 'data' => $data]);
+})->middleware(['auth']);

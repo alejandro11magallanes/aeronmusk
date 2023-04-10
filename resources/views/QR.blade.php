@@ -1,3 +1,4 @@
+<meta name="csrf-token" content="{{ csrf_token() }}" />
 
 <style>
     body {
@@ -145,7 +146,7 @@
 		<div class="id-card">
 			
 			<div class="photo">
-				{{$otra}}
+			{{ session()->get('mensaje') }}
 			</div>
 			
 			
@@ -154,5 +155,22 @@
 		</div>
 	</div>
     <div>
-        <h1>Ingresa con tu aplicacion movil para continuar</h1>
+        <h1>Escanea QR</h1>
     </div>
+
+	
+	<script src="{{ asset('js/app.js') }}"></script>
+        
+      
+
+<script>
+           Echo.channel('my-channel')
+    .listen('MyEvent', (event) => {
+        console.log(event);
+    });
+        </script>
+
+
+
+
+

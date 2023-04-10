@@ -19,7 +19,7 @@ class MailsettingSeeder extends Seeder
             'mail_host'                 =>'smtp.gmail.com',
             'mail_port'                 =>'587',
             'mail_username'             =>'aglmiguel4@gmail.com',
-            'mail_password'             =>'scilwoujqdumovwm',
+            'mail_password'             =>'xvuksqdhmrtrqaui',
             'mail_encryption'           =>'tls',
             'mail_from'                 => 'alejandroguzman2322@gmail.com',
         ]);

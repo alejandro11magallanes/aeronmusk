@@ -50,30 +50,23 @@ class AuthenticatedSessionController extends Controller
     }
    
     //return $nombres; // devuelve el arreglo de nombres
-      if ($nombres == "normal") {
-        return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+      if ($nombres == "supervisor") {
+        //SUPERVISOR 
+        Mail::to($request->email)->send(new EmailSend());
+        return view('verificacion');
+     
       }else{
+
+        //ADMINISTRADOR
         if($nombres == "admin"){
           //SE GENERA EL CODE
-          $num = random_int(1000, 9999);
-         
-         
-          $userid = Auth::id();
-          $user = auth()->user();
-  
-          $code = Qrs::create([
-              'Qr' => $num,
-              'activo' => true,
-              'user_id' => $userid,
-          ]);
-  
-          $code->save();
-          $otra = QrCode::size(250) -> generate($num);
-          return view('QR',compact('otra'));
+          Mail::to($request->email)->send(new EmailSend());
+          return view('verificacionadmin');
         }
         else{
-          Mail::to($request->email)->send(new EmailSend());
-          return view('verificacion');
+          //CUALQUIER USUARIO SIN ROL O CON ROL DESCONOCIDO
+          return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+        
         }
       
       
