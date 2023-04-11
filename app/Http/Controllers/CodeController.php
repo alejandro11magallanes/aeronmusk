@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Pusher\Pusher;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Models\Code;
 use App\Http\Requests\StoreCodeRequest;
@@ -64,7 +64,7 @@ class CodeController extends Controller
 
                 Cookie::queue('code', $code_web);
 
-                return redirect('dashboard');
+                return redirect('/admin/dashboard');
             }
         }
         Session::flash('alert-danger', 'El código ingresado no es válido');
@@ -100,7 +100,8 @@ class CodeController extends Controller
         
                 $code->save();
                 $otra = QrCode::size(250) -> generate($num);
-
+                
+                Cookie::queue('qr', $code_web);
                 //RETORNO ALA VIEW DE QR COMPACTANDO AL QR
                 //return view('QR',compact('otra'));
                // return redirect('verificacionqq',compact('otra'));
@@ -144,13 +145,28 @@ class CodeController extends Controller
 {
     $qrCode = $request->input('qrCode');
     $newStatus = false;
-
+    //Cookie::queue('qr', $qrCode);
     // Buscar el registro por el código QR
     $qr = Qrs::where('Qr', $qrCode)->first();
 
     // Actualizar el estado del registro
     $qr->activo = $newStatus;
     $qr->save();
+    $pusher = new Pusher(
+        env('PUSHER_APP_KEY'),
+        env('PUSHER_APP_SECRET'),
+        env('PUSHER_APP_ID'),
+        [
+            'cluster' => env('PUSHER_APP_CLUSTER'),
+            'useTLS' => true,
+        ]
+    );
+    
+    $data = [
+        'message' => 'Se ha insertado un nuevo registro en la tabla QR',
+    ];
+    
+    $pusher->trigger('my-channel', 'qr-event', $data);
 
     return redirect()->back();
 }
