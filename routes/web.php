@@ -9,6 +9,9 @@ use App\Http\Controllers\SignedRouteController;
 use App\Http\Controllers\Admin\{
     ProfileController,
     MailSettingController,
+    PostController,
+    VerificationController,
+    VerificacionEliminarController,
    
 };
 use Ratchet\Server\IoServer;
@@ -16,6 +19,10 @@ use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 use App\Providers\RouteServiceProvider;
 use App\WebSockets\WebSocket;
+
+
+
+use App\Http\Controllers\CodeUpdateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,21 +77,29 @@ require __DIR__.'/auth.php';
 
 
 
+
+
 Route::namespace('App\Http\Controllers\Admin')->name('admin.')->prefix('admin')
     ->group(function(){
         Route::resource('roles','RoleController');
         Route::resource('permissions','PermissionController');
         Route::resource('users','UserController');
-        Route::resource('posts','PostController');
-        Route::resource('codes','PostController');
-
+        Route::resource('soft','VerificacionEliminarController');
+        Route::resource('posts','PostController')->except(['edit']);
+        Route::get('/posts/{post}/verify-code', 'PostController@verifyCode')->name('posts.verify-code');
+        Route::get('/posts/{post}/edit', 'PostController@edit')->name('posts.edit')->middleware('updatemidelware');
+        Route::get('/posts/{post}/destruir', 'PostController@destruir')->name('posts.destruir');
+        Route::resource('codes','VerificationController');
+        Route::get('/verificar',[PostController::class, 'verificar'])->name('verificar');
+        Route::post('/verificar',[PostController::class, 'guardarPeticion'])->name('pedirc');
+        Route::get('/verificareliminar',[PostController::class, 'verificarelim'])->name('verificareliminar');
+        Route::post('/verificareliminar',[PostController::class, 'guardarPeticionEliminar'])->name('pedireliminar');
+       // Route::resource('codes','PostController');
         Route::get('/profile',[ProfileController::class,'index'])->name('profile');
         Route::put('/profile-update',[ProfileController::class,'update'])->name('profile.update');
         Route::get('/mail',[MailSettingController::class,'index'])->name('mail.index');
         Route::put('/mail-update/{mailsetting}',[MailSettingController::class,'update'])->name('mail.update');
 });
-
-
 
 
 
