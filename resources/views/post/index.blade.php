@@ -47,8 +47,16 @@
                     @endif
                     @endcan
 
+
+
+
                     @can('Post delete')
+                    @if(in_array('admin', $nombres))
+                    <a href="{{route('admin.posts.destruir',$post->id)}}" class="text-red-700 font-bold py-1 px-3 rounded text-xs bg-green hover:bg-green-dark text-red-500">Eliminar</a>
+
+                    @elseif(in_array('supervisor', $nombres))
                     <a href="{{route('admin.verificareliminar',$post->id)}}" class="text-red-700 font-bold py-1 px-3 rounded text-xs bg-green hover:bg-green-dark text-red-500">Eliminar</a>
+                    @endif
 
                     @endcan
                   </td>

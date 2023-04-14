@@ -246,6 +246,10 @@ class PostController extends Controller
      */
     public function destruir(Post $post, Request $request)
     {
+        $nombres = [];
+        foreach (auth()->user()->roles as $role) {
+            $nombres[] = $role->name; 
+        }
         $code = $request->codigo;
       
         if(in_array('supervisor', $nombres)){
@@ -275,6 +279,7 @@ class PostController extends Controller
         return redirect()->back()->withSuccess('Codigo invalido');
     }else if(in_array('admin', $nombres)){
         $post->update(['activado' => false]);
+        return redirect()->back()->withSuccess('Producto Eliminado');
     }
     }
 }

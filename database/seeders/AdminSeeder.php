@@ -76,7 +76,7 @@ class AdminSeeder extends Seeder
         $normal->assignRole($normal_role);
 
        // $admin_role->givePermissionTo(Permission::all());
-        $admin_role->givePermissionTo('Post access','Post edit','Post create','Post delete','Role access','Role edit','Role create','Role delete','User access','User edit','User delete','Permission access','Permission edit','Permission create','Permission delete','Codes eliminate');
+        $admin_role->givePermissionTo('User create','Post access','Post edit','Post create','Post delete','Role access','Role edit','Role create','Role delete','User access','User edit','User delete','Permission access','Permission edit','Permission create','Permission delete','Codes eliminate');
        // $supervisor_role->givePermissionTo(Permission::all());
         $supervisor_role->givePermissionTo('Post access','Post edit','Post create','Post delete','Codes access');
         $normal_role->givePermissionTo('Post access','Post edit','Post create','Post delete');
