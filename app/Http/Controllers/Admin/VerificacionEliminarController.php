@@ -33,7 +33,12 @@ class VerificacionEliminarController extends Controller
 
         return view('eliminar.index',['peticiones'=>$Post]);
     }
-
+    public function index2()
+    {
+        $codesa = VerificacionEliminar::all();
+        return response()->json($codesa);
+       // return response()->json(['data' => $codesa]);
+    }
     /**
      * Show the form for creating a new resource.
      *

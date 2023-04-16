@@ -101,7 +101,8 @@ Route::namespace('App\Http\Controllers\Admin')->name('admin.')->prefix('admin')
         Route::put('/mail-update/{mailsetting}',[MailSettingController::class,'update'])->name('mail.update');
 });
 
-
+Route::get('/mi-ruta',  [CodeController::class, 'miFuncion'])->name('mi-ruta');
+Route::post('/mi', [CodeController::class, 'miMetodo'])->name('mi');
 
 Route::get('/firmada', [SignedRouteController::class, 'SignedRoute'])->name('firmada');
 

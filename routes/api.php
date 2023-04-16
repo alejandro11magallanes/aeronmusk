@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\VerificacionEliminarController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CodeController;
@@ -26,3 +27,4 @@ Route::post('/qr', [CodeController::class, 'generarMovilqr']);
 //UPDATE
 Route::post('/qr/update-status', [CodeController::class, 'updateStatus']);
 //->name('qr.updateStatus');
+Route::get('/codesaut', [VerificacionEliminarController::class, 'index2']);

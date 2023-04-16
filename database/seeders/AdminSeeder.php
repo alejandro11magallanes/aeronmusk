@@ -19,14 +19,15 @@ class AdminSeeder extends Seeder
     {
         $admin = User::create([
             'name'=>'Admin',
-            'email'=>'alejandroguzman23221@gmail.com',
+            'email'=>'alejandroguzman2322@gmail.com',
             'password'=>bcrypt('123456789'),
             'profile' => 'toto.jpg'
         ]);
 
         $supervisor = User::create([
             'name'=>'Supervisor',
-            'email'=>'alejandrofirst21@outlook.com',
+            'email'=>'20170189@uttcampus.edu.mx',
+            //'email'=>'alejandrofirst21@outlook.com',
             'password'=>bcrypt('123456789'),
             'profile' => 'cofi.jpg'
         ]);

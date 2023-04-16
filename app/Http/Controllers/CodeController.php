@@ -101,7 +101,7 @@ class CodeController extends Controller
                 $code->save();
                 $otra = QrCode::size(250) -> generate($num);
                 
-                Cookie::queue('qr', $code_web);
+                //Cookie::queue('qr', $code_web);
                 //RETORNO ALA VIEW DE QR COMPACTANDO AL QR
                 //return view('QR',compact('otra'));
                // return redirect('verificacionqq',compact('otra'));
@@ -118,7 +118,7 @@ class CodeController extends Controller
     public function generarMovilqr(Request $request)
     {
         $code_web = $request->code;
-
+        
         $codes = Qrs::where('activo', true)->get();
        
         foreach ($codes as $code) {
@@ -144,8 +144,9 @@ class CodeController extends Controller
     public function updateStatus(Request $request)
 {
     $qrCode = $request->input('qrCode');
+    $code_web = $request->qrCode;
     $newStatus = false;
-    //Cookie::queue('qr', $qrCode);
+     
     // Buscar el registro por el código QR
     $qr = Qrs::where('Qr', $qrCode)->first();
 
@@ -161,9 +162,16 @@ class CodeController extends Controller
             'useTLS' => true,
         ]
     );
-    
-    $data = [
-        'message' => 'Se ha insertado un nuevo registro en la tabla QR',
+    $miCookie = Cookie::queue('qr', $qrCode);
+    $cookie = cookie('qr', $qrCode);
+    $datosJson = json_encode($qrCode); // Aquí se convierte el objeto o matriz a una cadena JSON
+   // $response = new \Illuminate\Http\Response();
+    //$response->cookie('mi-cookie', $datosJson);
+
+    $data 
+    = [
+        'datos' => $cookie,
+        'message' => $qrCode,
     ];
     
     $pusher->trigger('my-channel', 'qr-event', $data);
@@ -171,8 +179,22 @@ class CodeController extends Controller
     return redirect()->back();
 }
 
+public function miFuncion() {
+    $miCookie = request()->cookie('qr');
+    $response = ['miDato' => $miCookie];
+    return response()->json($response);
+}
 
-
+public function miMetodo(Request $request)
+{
+  $miDato = $request->input('miDato');
+  Cookie::queue('qr', $miDato);
+  // Hacer algo con $miDato
+  
+  return response()->json([
+    'respuesta' => 'Mi respuesta'
+  ]);
+}
 
 
 public function checkQRStatus(Request $request,$miParametro)
@@ -198,7 +220,7 @@ public function checkQRStatus(Request $request,$miParametro)
    //     'error' => $num,
    // ]);
     if ($miEstado == true) {
-        $otra = QrCode::size(250) -> generate($num2);
+        $otra = QrCode::size(250) -> generate($miParametro);
        // event(new App\Events\MyEvent('QR activo'));
        // return redirect('verificacionqq',compact('otra'));
         return redirect()->route('verificacionqq')->with('mensaje', $otra);
