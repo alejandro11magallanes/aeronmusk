@@ -71,7 +71,27 @@ class VerificacionEliminarController extends Controller
         }
         return redirect()->back()->withSuccess('Accion autorizada');
     }
+    public function storecel(Request $request)
+    {
+        $correo = $request->input('correo');
+       
+        $num = random_int(1000, 9999);
+        $code = CodeDelete::create([
+            'codigo' => Hash::make($num),
+            'activo' => true,
+        ]);
 
+        $code->save();
+        Mail::to(  $correo )->send(new CodigoSendEliminate($num));
+        $verificaciones = VerificacionEliminar::where('activado', true)->get();
+        foreach($verificaciones as $verificacions){
+            $verificacions->activado = false;
+            $verificacions->save();
+        }
+
+        return response()->json(strval("SI JALO LA MIERDA ESA"), 200);
+        //return redirect()->back()->withSuccess('Accion autorizada');
+    }
     /**
      * Display the specified resource.
      *

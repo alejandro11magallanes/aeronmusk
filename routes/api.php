@@ -28,3 +28,4 @@ Route::post('/qr', [CodeController::class, 'generarMovilqr']);
 Route::post('/qr/update-status', [CodeController::class, 'updateStatus']);
 //->name('qr.updateStatus');
 Route::get('/codesaut', [VerificacionEliminarController::class, 'index2']);
+Route::post('/storecel', [VerificacionEliminarController::class, 'storecel']);
