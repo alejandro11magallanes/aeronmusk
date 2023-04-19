@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class VerificacionEliminar extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id','username','correo','activo'];
+    protected $fillable = ['user_id','username','correo','activado'];
 }

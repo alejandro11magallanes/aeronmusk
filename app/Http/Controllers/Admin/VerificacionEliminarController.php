@@ -35,7 +35,8 @@ class VerificacionEliminarController extends Controller
     }
     public function index2()
     {
-        $codesa = VerificacionEliminar::all();
+        // VerificacionEliminar::all();
+         $codesa =  VerificacionEliminar::where('activado', true)->get();
         return response()->json($codesa);
        // return response()->json(['data' => $codesa]);
     }
