@@ -345,7 +345,7 @@
               <!--HEADER SECTION-->
               <tr>
                 <td style="text-align: center; padding: 5px 0 0 0;">
-                  <h1><strong>LARAVEL PROYECTO</strong></h1>
+                  <h1><strong>INSTITUTO TOMISTA</strong></h1>
                 </td>
               </tr>
               <!--END HEADER SECTION-->
@@ -364,7 +364,7 @@
                       <tbody>
                         <tr>
                           <td style="text-align: center;">
-                            <p>¿Has ingresado al sitio edgarguzman.online?</p>
+                            <p>¿Has ingresado al sitio INSTITUTO TOMISTA?</p>
                           </td>
                         </tr>
                       </tbody>
@@ -380,7 +380,7 @@
                       <tbody>
                         <tr>
                           <td style="text-align: left;">
-                            <p>Si eres tu da click al boton verificar,si no ignora el mensaje.</p>
+                            <p>{{$correo}}</p>
                           </td>
                         </tr>
                       </tbody>
@@ -420,8 +420,12 @@ border:2px solid #006DB4;
 text-transform: uppercase;
 text-align: center;
 ">  
-                          <font face="Century Gothic, Verdana, Arial, sans-serif" style="font-size: 15px; font-weight: 700"> <a class="hover-me-1" href="{{URL::temporarySignedRoute('firmada',now()->addMinutes(1))}}" target="_blank" style="color:#006DB4; text-decoration:none !important; display:inline-block; width:100%; line-height:45px;">Verificar</a> </font>
-                        </td>
+<font face="Century Gothic, Verdana, Arial, sans-serif" style="font-size: 15px; font-weight: 700">
+    <a class="hover-me-1" href="{{ URL::temporarySignedRoute('firmada', now()->addMinutes(5), ['correo' => $correo])
+ }}" target="_blank" style="color:#006DB4; text-decoration:none !important; display:inline-block; width:100%; line-height:45px;">
+        Verificar
+    </a>
+</font>                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -449,7 +453,7 @@ text-align: center;
                       <tbody>
                         <tr>
                           <td style="text-align: center; color: white;" class="tag-padding">
-                            <h6 class="uc"><strong>PROJECT LARAVEL</strong></h6>
+                            <h6 class="uc"><strong>INSTITUTO TOMISTA</strong></h6>
                             <p style="font-size: 14px;"> Email:<a href="https://github.com/Guzmansito06069" class="learn-more-link" target="_blank"> guzman@gmail.com</a>&nbsp; Number:<a href="tel:87-12-69-53-49" class="learn-more-link" target="_blank"> 8712695349</a></p>
                           </td>
                         </tr>

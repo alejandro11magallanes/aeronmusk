@@ -8,7 +8,10 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use App\Mail\EmailSend;
 use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Log;
+use PDOException;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\RedirectResponse;
@@ -38,50 +41,48 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
 
-        $request->session()->regenerate();
-        
-       // $value = $request->session()->get('key', 'default');
-         //$nombres = "";// inicializa el arreglo de nombres vacío
-// $value = $request->session()->get('key', 'default');
-$nombres = [];// inicializa el arreglo de nombres vacío
-/*
-    foreach (auth()->user()->roles as $role) {
-        $nombres = $role->name; // agrega el nombre del usuario al arreglo de nombres
+        try {
+            DB::connection()->getPdo();
+            $request->authenticate();
+
+            $request->session()->regenerate();
+
+
+            $nombres = []; // inicializa el arreglo de nombres vacío
+
+
+            foreach (auth()->user()->roles as $role) {
+                $nombres[] = $role->name; // agrega el nombre del usuario al arreglo de nombres
+            }
+            return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+            // if (in_array('docentes', $nombres)) {
+            //     return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+
+
+            // }
+            // //return $nombres; // devuelve el arreglo de nombres
+            // else if (in_array('alumnos', $nombres)) {
+            //     return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+
+
+            // } else if (in_array('admin', $nombres)) {
+
+            //     return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+            // }
+
+
+
+        } catch (PDOException $e) {
+            // Si hay un error de conexión, mostrar un mensaje de error y redirigir a la página de inicio de sesión
+            abort(419, 'Lo siento, tu sesión ha caducado.');
+            //return view('vistabd');
+        }
     }
-    */
-    foreach (auth()->user()->roles as $role) {
-      $nombres[] = $role->name; // agrega el nombre del usuario al arreglo de nombres
-  }
-  
-  if (in_array('normal', $nombres)) {
-    Auth::logout();
-    return redirect()->route('admin.login')->withErrors([
-        'message' => __('No puedes iniciar sesión en esta aplicación.'),
-    ]);
-  
-         }
-    //return $nombres; // devuelve el arreglo de nombres
-    else if(in_array('supervisor', $nombres)){
-        //SUPERVISOR 
-        Mail::to($request->email)->send(new EmailSend());
-        return view('verificacion');
-     
-      }  
-      else if (in_array('admin', $nombres)){
-        Mail::to($request->email)->send(new EmailSend());
-        return view('verificacionadmin');
-        //ADMINISTRADOR
-      
-       } 
-    
-      
-      }
-    
-    
-        //return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
-    
+
+
+    //return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+
 
     /**
      * Destroy an authenticated session.
@@ -90,14 +91,15 @@ $nombres = [];// inicializa el arreglo de nombres vacío
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Request $request)
-    {   Cookie::queue(Cookie::forget('code'));
+    {
+        Cookie::queue(Cookie::forget('code'));
         Cookie::queue(Cookie::forget('qr'));
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-      
+
         return redirect('/');
     }
 }

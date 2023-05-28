@@ -42,8 +42,10 @@ return [
           'encrypted' => true,
           'useTLS' => true,
           'cluster' => 'us2',
-  
+          'timeout' => 30, // tiempo de espera en segundos
+          
           'curl_options' => [
+            CURLOPT_TIMEOUT => 30, // tiempo de espera para la conexión y la lectura
             CURLOPT_SSL_VERIFYHOST => 0,
             CURLOPT_SSL_VERIFYPEER => 0,
         ],

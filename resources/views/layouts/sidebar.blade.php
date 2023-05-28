@@ -16,10 +16,10 @@
 <div :class="sidebarOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'" class="fixed z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 overflow-y-auto lg:translate-x-0 lg:static lg:inset-0">
             <div class="flex items-center justify-center mt-8">
                 <div class="flex items-center">
-                <img src="{{URL::asset('images/dash.png')}}" alt="" class="imagen-redonda">
-
+                
+                <img src="{{URL::asset('images/Tomista.png')}}" alt="" class="imagen-redonda">
                     <a href="{{ route('admin.dashboard') }}">
-                        <span class="text-white text-2xl mx-2 font-semibold">Dulceria Barrilito</span>
+                        <span class="text-white text-2xl mx-2 font-semibold">Instituto Tomista</span>
                     </a>
                 </div>
             </div>
@@ -63,8 +63,9 @@
                     <span class="mx-3">Usuarios</span>
                 </a>
                 @endcanany
+               
                 
-                @canany('Post access','Post add','Post edit','Post delete')
+                @canany('Alumnos access','Alumnos add','Alumnos edit','Alumnos delete')
                  <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ Route::currentRouteNamed('admin.posts.index') ? 'active' : '' }}"
                     href="{{ route('admin.posts.index')}}">
                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -73,51 +74,72 @@
                             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
                         </path>
                     </svg>    
-                    <span class="mx-3">Productos</span>
+                    <span class="mx-3">Alumnos</span>
+                </a>
+                @endcanany
+                @canany('Nivel access','Nivel add','Nivel edit','Nivel delete')
+                 <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ Route::currentRouteNamed('admin.marcas.index') ? 'active' : '' }}"
+                    href="{{ route('admin.marcas.index')}}">
+                    
+
+                <svg class="bi bi-layers-half" fill="currentColor" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M8.235 1.559a.5.5 0 0 0-.47 0l-7.5 4a.5.5 0 0 0 0 .882L3.188 8 .264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l2.922-1.559a.5.5 0 0 0 0-.882l-7.5-4zM8 9.433 1.562 6 8 2.567 14.438 6 8 9.433z"/></svg>
+                    <span class="mx-3">Niveles educativos</span>
+                </a>
+                @endcanany
+                @canany('Docentes access','Docentes add','Docentes edit','Docentes delete')
+                 <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ Route::currentRouteNamed('admin.concesionarios.index') ? 'active' : '' }}"
+                    href="{{ route('admin.concesionarios.index')}}">
+                    
+
+                <svg class="bi bi-layers-half" fill="currentColor" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M8.235 1.559a.5.5 0 0 0-.47 0l-7.5 4a.5.5 0 0 0 0 .882L3.188 8 .264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l2.922-1.559a.5.5 0 0 0 0-.882l-7.5-4zM8 9.433 1.562 6 8 2.567 14.438 6 8 9.433z"/></svg>
+                    <span class="mx-3">Docentes</span>
                 </a>
                 @endcanany
 
 
-                @canany('Mail access','Mail edit')
-                 <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ Route::currentRouteNamed('admin.mail.index') ? 'active' : '' }}"
-                    href="{{ route('admin.mail.index')}}">
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                        </path>
-                    </svg>
-                    <span class="mx-3">Configuracion</span>
+                @canany('Encuestas access')
+                 <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ Route::currentRouteNamed('admin.concesionarios.index') ? 'active' : '' }}"
+                    href="{{(' ')}}">
+                    
+
+                <svg class="bi bi-layers-half" fill="currentColor" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M8.235 1.559a.5.5 0 0 0-.47 0l-7.5 4a.5.5 0 0 0 0 .882L3.188 8 .264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l2.922-1.559a.5.5 0 0 0 0-.882l-7.5-4zM8 9.433 1.562 6 8 2.567 14.438 6 8 9.433z"/></svg>
+                    <span class="mx-3">Encuestas</span>
                 </a>
                 @endcanany
+
+
+                @canany('Evaluaciones access')
+                 <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ Route::currentRouteNamed('admin.concesionarios.index') ? 'active' : '' }}"
+                    href="{{(' ')}}">
+                    
+
+                <svg class="bi bi-layers-half" fill="currentColor" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M8.235 1.559a.5.5 0 0 0-.47 0l-7.5 4a.5.5 0 0 0 0 .882L3.188 8 .264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l2.922-1.559a.5.5 0 0 0 0-.882l-7.5-4zM8 9.433 1.562 6 8 2.567 14.438 6 8 9.433z"/></svg>
+                    <span class="mx-3">Evaluaciones</span>
+                </a>
+                @endcanany
+               
+
+                @canany('Comentarios access')
+                 <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ Route::currentRouteNamed('admin.comentarios') ? 'active' : '' }}"
+                    href="{{('comentarios')}}">
+                    
+
+                <svg class="bi bi-layers-half" fill="currentColor" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M8.235 1.559a.5.5 0 0 0-.47 0l-7.5 4a.5.5 0 0 0 0 .882L3.188 8 .264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l2.922-1.559a.5.5 0 0 0 0-.882l-7.5-4zM8 9.433 1.562 6 8 2.567 14.438 6 8 9.433z"/></svg>
+                    <span class="mx-3">Comentarios</span>
+                </a>
+                @endcanany
+
+                @canany('Docentes access')
+                 <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ Route::currentRouteNamed('admin.encuestas.index') ? 'active' : '' }}"
+                    href="{{('encuestas')}}">
+                    
+
+                <svg class="bi bi-layers-half" fill="currentColor" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M8.235 1.559a.5.5 0 0 0-.47 0l-7.5 4a.5.5 0 0 0 0 .882L3.188 8 .264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l2.922-1.559a.5.5 0 0 0 0-.882l-7.5-4zM8 9.433 1.562 6 8 2.567 14.438 6 8 9.433z"/></svg>
+                    <span class="mx-3">Encuestas</span>
+                </a>
+                @endcanany
+               
 
               
-                
-                @canany('Codes access')
-                 <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ Route::currentRouteNamed('admin.mail.index') ? 'active' : '' }}"
-                    href="{{ route('admin.codes.index')}}">
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                        </path>
-                    </svg>
-                    <span class="mx-3">Peticiones de Actualizacion</span>
-                </a>
-                @endcanany
-
-                @canany('Codes eliminate')
-                 <a class="flex items-center mt-4 py-2 px-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 {{ Route::currentRouteNamed('admin.mail.index') ? 'active' : '' }}"
-                    href="{{ route('admin.soft.index')}}">
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
-                        </path>
-                    </svg>
-                    <span class="mx-3">Peticiones de Eliminacion</span>
-                </a>
-                @endcanany
-
             </nav>
         </div>

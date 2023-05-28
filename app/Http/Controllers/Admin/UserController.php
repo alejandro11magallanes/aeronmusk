@@ -62,8 +62,14 @@ class UserController extends Controller
             'email' => 'required|email|unique:users',
             'password'=>'required|confirmed'
         ]);
+
+      
+
         $user = User::create([
             'name'=>$request->name,
+            'apaterno'=>$request->apaterno,
+            'amaterno'=>$request->amaterno,
+            'fechanacimiento'=>$request->fechanacimiento,
             'email'=>$request->email,
             'password'=> bcrypt($request->password),
         ]);
@@ -106,6 +112,9 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name'=>'required',
+            'apaterno'=>'required',
+            'amaterno'=>'required',
+            'fechanacimiento'=>'required',
             'email' => 'required|email|unique:users,email,'.$user->id.',id',
         ]);
 

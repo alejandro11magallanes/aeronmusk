@@ -13,6 +13,7 @@
                   <thead>
                     <tr>
                       <th class="py-4 px-6 bg-grey-lightest font-bold text-sm text-grey-dark border-b border-grey-light">Nombre de Usuario</th>
+                      <th class="py-4 px-6 bg-grey-lightest font-bold text-sm text-grey-dark border-b border-grey-light">Correo</th>
                       <th class="py-4 px-6 bg-grey-lightest font-bold text-sm text-grey-dark border-b border-grey-light">Rol de usuario</th>
                       <th class="py-4 px-6 bg-grey-lightest font-bold text-sm text-grey-dark border-b border-grey-light text-right">Acciones</th>
                     </tr>
@@ -23,6 +24,7 @@
                       @foreach($users as $user)
                       <tr class="hover:bg-grey-lighter">
                         <td class="py-4 px-6 border-b border-grey-light">{{ $user->name }}</td>
+                        <td class="py-4 px-6 border-b border-grey-light">{{ $user->email }}</td>
                         <td class="py-4 px-6 border-b border-grey-light">
                             @foreach($user->roles as $role)
                               <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-white bg-gray-500 rounded-full">{{ $role->name }}</span>

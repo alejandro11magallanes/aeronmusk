@@ -1,55 +1,148 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
+<style>
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,800');
 
-<x-front-guest-layout>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <main class="bg-white font-montserrat">
-        <header class="h-24 sm:h-32 flex items-center">
-            <div class="container mx-auto px-6 sm:px-12 flex items-center justify-between">
-                <div class="text-black font-black text-2xl flex items-center">
-                    <span class="w-6 h-6 rounded-full bg-blue-500 mr-4"></span> Dulceria 
-                </div>
-                <div class="flex items-center">
-                    <nav class="text-black text-lg hidden lg:flex items-center">
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito Sans', sans-serif;
+}
 
-                        @if(Route::has('admin.login'))
-                                <a href="{{ route('admin.login') }}" class="py-2 px-6 flex hover:text-blue-500">Inicio de sesion</a>
+.page {
+  witdh: 100vh;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F1F1F1;
+}
+
+.card {
+  width: 960px;
+  height: 540px;
+  background-color: white;
+  box-shadow: 0px 50px 100px rgba(0, 0, 0, .4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.menu {
+  width: 100%;
+  height: 10%;
+}
+
+.menu h3 {
+  font-size: 1em;
+  margin-left: 25px;
+  font-weight: 800;
+  float: left;
+}
+
+i {
+  float: right;
+  font-size: 0.8em;
+  margin: 20px 25px;
+  transition: font-size 0.2s;
+}
+
+i:hover {
+  font-size: 1em;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content .text {
+  margin-bottom: 50px;
+}
+
+.text h1 {
+  font-size: 2.5em;
+  line-height: 1;
+}
+
+.text p {
+  color: rgb(0,0,0,0.5);
+  margin-bottom: 40px;
+  margin-top: -5px;
+}
+
+.text a {
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  background-color: #fe864c;
+  transition: background-color 0.2s;
+  transition: color 0.2s;
+  padding: 10px 20px;
+  border: 2px solid #fe864c;
+}
+
+.text a:hover, .text a:active {
+  background-color: white;
+  color: #fe864c;
+}
+
+.photo {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://images.pexels.com/photos/33041/antelope-canyon-lower-canyon-arizona.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+    </style>
+
+   
+    
+<div class="page">
+  <div class="card">
+    <div class="container">
+      <div class="menu">
+        <h3>UTT</h3>
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="content">
+        <div class="text">
+          <h1>Instituto Tomista <br>de la Laguna.</h1>
+          <p>"Elevando los estándares de la educación".</p>
+      
+          @if(Route::has('admin.login'))
+                                <a href="{{ route('admin.login') }}" >Inicio de sesion</a>
 
                         @endif
-
-                       
-                    </nav>
-                    <button class="lg:hidden flex flex-col">
-                        <span class="w-6 h-px bg-gray-900 mb-1"></span>
-                        <span class="w-6 h-px bg-gray-900 mb-1"></span>
-                        <span class="w-6 h-px bg-gray-900 mb-1"></span>
-                    </button>
-                </div>
-            </div>
-        </header>
-        <div class="container mx-auto px-6 sm:px-12 flex flex-col-reverse sm:flex-row items-center">
-            <div class="sm:w-2/5 flex flex-col items-start mt-8 sm:mt-0">
-                <h1 class="text-4xl lg:text-6xl leading-none mb-4"><strong class="font-black">Dulceria</strong> Barrilito</h1>
-                <p class="lg:text-lg mb-4 sm:mb-12">¡Bienvenidos a nuestra dulcería, donde los dulces sueños se hacen realidad! Ofrecemos una amplia variedad de postres deliciosos y frescos, desde pasteles hasta galletas, chocolates y más!</p>
-                <a href="#" class="font-semibold text-lg bg-blue-500 hover:bg-blue-400 text-white py-3 px-10 rounded-full">Learn more</a>
-            </div>
-            <div class="sm:w-3/5">
-   
-         
-            <img src="{{URL::asset('images/dulces.jpg')}}"
-                alt="" class="w-full">
-               
-            </div>
-        </div>
-    </main>
+        </div>  
+      </div>
+    </div>
+    <div class="photo"></div>
+  </div>
+</div>
 
 
 
 
 
 
-
-</x-front-guest-layout>
 
 <script src="{{ asset('js/app.js') }}"></script>
         

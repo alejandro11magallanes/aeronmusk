@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\CodeDelete;
-use App\Models\CodeUpdate;
+use App\Models\Concesionarios;
 use Illuminate\Http\Request;
 use App\Models\Post;
-use App\Models\Verificacion;
-use App\Models\VerificacionEliminar;
+use App\Models\Marca;
 use Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+
+
 class PostController extends Controller
 {
     /**
@@ -35,8 +36,10 @@ class PostController extends Controller
     public function index()
     {
         $Post= Post::paginate(4);
-
-        return view('post.index',['posts'=>$Post]);
+        $marcas = Marca::get();
+        $concesionarios = Concesionarios::get();
+      
+        return view('post.index',['posts'=>$Post,'marcas'=>$marcas,'concesionarios'=>$concesionarios]);
     }
 
     /**
@@ -46,7 +49,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post.new');
+        $marcas = Marca::get();
+        $concesionarios = Concesionarios::get();
+        return view('post.new',['marcas'=>$marcas,'concesionarios'=>$concesionarios]);
     }
     public function verificar(Request $request)
     {
@@ -74,6 +79,11 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data= $request->all();
+        $request->marca = $request->input('marca');
+        $request->año = $request->input('año');
+        $request->modelo = $request->input('modelo');
+        $request->marca_id = $request->input('marca_id');
+        $request->con_id = $request->input('con_id');
         $data['user_id'] = Auth::user()->id;
         $archivo = $request->file('image');
         $nombre = $archivo->getClientOriginalName();
@@ -154,37 +164,12 @@ class PostController extends Controller
 
     public function edit(Post $post, Request $request)
     {
-
-    $nombres = [];
-    foreach (auth()->user()->roles as $role) {
-        $nombres[] = $role->name; 
-    }
-
-    if(in_array('admin', $nombres)){
-        $code = $request->codigo;
-      
-        $codesverficar = CodeUpdate::where('activo', true)->get();
-        if ($codesverficar->isEmpty()) {
-         return redirect()->back()->withSuccess('Este codigo ya se ha usado');
-     }
-     
-        foreach ($codesverficar as $codigover) {
-         if (Hash::check($code, $codigover->codigo)) {
-             
-             $codigover->activo = false;
- 
-             $codigover->save();
- 
-             Cookie::queue('editar', $code);
- 
-             return view('post.edit',['post' => $post]);
-         }
-         return redirect()->back()->withSuccess('Codigo invalido');
-     }
-    }
-    else if(in_array('supervisor', $nombres)){
-        return view('post.edit',['post' => $post]);
-    }
+        $marcas = Marca::get();
+        $concesionarios = Concesionarios::get();
+        //return view('post.new',['marcas'=>$marcas,'concesionarios'=>$concesionarios]);
+  
+        return view('post.edit',['post' => $post,'marcas'=>$marcas,'concesionarios'=>$concesionarios]);
+    
 
       
 
@@ -206,9 +191,11 @@ class PostController extends Controller
       
 
         if ($request->hasFile('image')) {
-          $post->title = $request->input('title');
-          $post->precio = $request->input('precio');
           $post->marca = $request->input('marca');
+          $post->modelo = $request->input('modelo');
+          $post->año = $request->input('año');
+          $post->marca_id = $request->input('marca_id');
+          $post->con_id = $request->input('con_id');
           $archivo = $request->file('image');
             $nombre = $archivo->getClientOriginalName();
              $img = $request->file('image');
@@ -218,22 +205,19 @@ class PostController extends Controller
           $post->imagen_url = $folder;
         }
         else{
-            $post->title = $request->input('title');
-            $post->precio = $request->input('precio');
             $post->marca = $request->input('marca');
+            $post->modelo = $request->input('modelo');
+            $post->año = $request->input('año');
+            $post->marca_id = $request->input('marca_id');
+            $post->con_id = $request->input('con_id');
             $post->imagen_url = $request->input('imagenguardada');
         }
 
 
         $post->save();
         $nombres = [];
-    foreach (auth()->user()->roles as $role) {
-        $nombres[] = $role->name; 
-    }
-
-    if(in_array('normal', $nombres)){
         Cookie::queue(Cookie::forget('editar'));
-    }
+    
         //$post->update($request->all());
         return redirect()->route('admin.dashboard');
     }

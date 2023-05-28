@@ -146,7 +146,7 @@
 		<div class="id-card">
 			
 			<div class="photo">
-			{{ session()->get('mensaje') }}
+			{{ $otra }}
 			</div>
 			
 			
@@ -172,6 +172,8 @@
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
+
+	
     // Conectarse a Pusher
     var pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
         cluster: '{{ env('PUSHER_APP_CLUSTER') }}',
@@ -185,6 +187,7 @@
     // Escuchar el evento "qr-event" en el canal "qr-channel"
     var channel = pusher.subscribe('my-channel');
     channel.bind('qr-event', function(data) {
+
 		x = data.message;
 		$.ajax({
   url: '/mi',
@@ -197,6 +200,8 @@
 	location.reload();
 	window.location.href = '/admin/dashboard';
   }
+
+  
 });
 /*
 		$.ajax({

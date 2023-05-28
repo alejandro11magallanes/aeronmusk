@@ -13,10 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+       //SEEDER NIVELES EDUCACTIVOS
+        $this->call(Nivel::class);
+        //SEEDER PARA USUARIOS
         $this->call(AdminSeeder::class);
-        $this->call(ProductSeeder::class);
-       // \App\Models\Post::factory(100)->create();
-        $this->call(MailsettingSeeder::class);
+        //SEDDER PARA VER SI JALA DOCENTES
+        $this->call(DocenteSeeder::class);
+        $this->call(Comentarios::class);
+        $this->call(EncuestasSeeder::class);
+        
     }
 }

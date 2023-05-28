@@ -30,7 +30,7 @@ if (token) {
 
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
- 
+
 //window.Pusher = Pusher;
 window.Pusher = require('pusher-js')
 window.Echo = new Echo({

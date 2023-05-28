@@ -1,3 +1,5 @@
+
+
 <style>
 ul {
   list-style-type: none;
@@ -907,6 +909,8 @@ body {
       <div class="title">
         <h1>{{auth()->user()->name}}</h1>
         <h3>{{auth()->user()->email}}</h3>
+        <h3>{{auth()->user()->apaterno}}</h3>
+        <h3>{{auth()->user()->amaterno}}</h3>
         <p> Rol : <b>
                     @foreach(auth()->user()->roles as $role)
                         {{ $role->name }}
@@ -936,7 +940,13 @@ body {
    
   </div>
 
+  <div style="width: 600px; text-align: right;padding: 10px;">
+    <canvas id="myChart"></canvas>
+</div>
+<div style="width: 600px; margin:0;">
+<canvas id="myChart2" ></canvas>
+</div>
 
-   
+<script src="{{ mix('/js/app.js') }}"></script>
 @yield('js')
 </x-app-layout>

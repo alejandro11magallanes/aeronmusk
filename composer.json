@@ -8,14 +8,16 @@
         "php": "^7.3|^8.0",
         "beyondcode/laravel-websockets": "^1.14",
         "cboden/ratchet": "^0.4.4",
+        "consoletvs/charts": "^6.6",
         "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/breeze": "^1.4",
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "league/flysystem-aws-s3-v3": "^1.0",
+        "league/flysystem-aws-s3-v3": "*",
         "opcodesio/log-viewer": "^2.4",
+        "predis/predis": "^2.1",
         "pusher/pusher-php-server": "^7.2",
         "realrashid/sweet-alert": "^6.0",
         "simplesoftwareio/simple-qrcode": "4.2",
@@ -66,6 +68,7 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
+
     "prefer-stable": true
 }
