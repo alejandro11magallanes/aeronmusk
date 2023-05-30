@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SignedRouteController;
 use App\Http\Controllers\Forgotten;
 use App\Http\Controllers\Comentarios;
-
+//comenario para el commit
 use App\Http\Controllers\Admin\{
     ProfileController,
     MailSettingController,
